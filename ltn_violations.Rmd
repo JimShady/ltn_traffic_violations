@@ -1,0 +1,42 @@
+---
+title: "LTN Traffic Violations"
+author: "@TheRealJimShady"
+output: html_document
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs/", output_file ="index.html") })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Otto Street, SE17
+
+```{r otto_street, echo=FALSE, fig.align="center"}
+
+read_csv('otto_traffic_violations.csv', col_types = cols()) %>%
+          pivot_longer(!date, names_to = "tickets", values_to = "count") %>% 
+  filter(tickets != 'total') %>%
+  filter(tickets != 'tickets_issued') %>%
+  mutate(tickets = gsub('tickets_', '', tickets),
+         date = as.Date(date, "%d/%m/%Y")) %>%
+  ggplot(., aes(fill=tickets, y=count, x=date)) + 
+    geom_bar(position="stack", stat="identity") +
+  xlab("Month") +
+  ylab('Tickets') +
+  theme_classic() +
+  theme(axis.text = element_text(size=12, colour = 'black'),
+        axis.title = element_text(size=14, colour = 'black'))
+
+```
+
+Data: FOI request to Southwark Council, [available here](https://raw.githubusercontent.com/JimShady/ltn_traffic_violations/main/otto_traffic_violations.csv).
+
+### Comments
+
+-   It appears that for the first month of the scheme, all tickets were cancelled. In the data they were not strictly marked as this, but 100% were 'issued' with none of them open, paid or cancelled. I presume that they have been cancelled while residents get acustomed to the scheme.
+-   Tickets were seemingly paused from 3rd December 2020 until 3 February 2021. Unsure of the reasons for this.
+-   Despite clear signage and blocks in the road, since the beginning of February there are still 42 tickets per day being issued (compared to 90 in December 2020)
+
+Pull requests to improve this page, or sending me similar data to compile for other LTNs is very welcome.
