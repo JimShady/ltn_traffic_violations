@@ -40,3 +40,5 @@ Data: FOI request to Southwark Council, [available here](https://raw.githubuserc
 -   Despite clear signage and blocks in the road, since the beginning of February there are still 42 tickets per day being issued (compared to 90 in December 2020)
 
 Pull requests to improve this page, or sending me similar data to compile for other LTNs is very welcome.
+
+Like this and want more? I'd really appreciate a motivational coffee <https://ko-fi.com/therealjimshady>
